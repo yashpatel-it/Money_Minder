@@ -1,12 +1,30 @@
 import { AppLayout } from "@/components/layout/AppLayout";
 import { useStats } from "@/hooks/use-stats";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowDownRight, ArrowUpRight, DollarSign, Wallet, Loader2 } from "lucide-react";
+import { ArrowDownRight, ArrowUpRight, DollarSign, Wallet, Loader2, IndianRupee, Utensils, Plane, Home, GraduationCap, Stethoscope, Film, MoreHorizontal } from "lucide-react";
+
+const getCategoryIcon = (name: string) => {
+  switch (name.toLowerCase()) {
+    case "food": return <Utensils className="w-4 h-4" />;
+    case "travel": return <Plane className="w-4 h-4" />;
+    case "rent": return <Home className="w-4 h-4" />;
+    case "education": return <GraduationCap className="w-4 h-4" />;
+    case "medical": return <Stethoscope className="w-4 h-4" />;
+    case "entertainment": return <Film className="w-4 h-4" />;
+    default: return <MoreHorizontal className="w-4 h-4" />;
+  }
+};
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip, Legend } from "recharts";
 import { useExpenses } from "@/hooks/use-expenses";
 import { format } from "date-fns";
 
-const COLORS = ['#8b5cf6', '#ec4899', '#3b82f6', '#10b981', '#f59e0b', '#6366f1'];
+const COLORS = ['#10b981', '#f43f5e', '#3b82f6', '#8b5cf6', '#f59e0b', '#6366f1'];
+
+    case "medical": return <Stethoscope className="w-4 h-4" />;
+    case "entertainment": return <Film className="w-4 h-4" />;
+    default: return <MoreHorizontal className="w-4 h-4" />;
+  }
+};
 
 export default function Dashboard() {
   const { data: stats, isLoading: statsLoading } = useStats();
@@ -42,7 +60,7 @@ export default function Dashboard() {
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">Total Income</p>
                   <h3 className="text-2xl font-bold mt-2 text-emerald-600">
-                    ${Number(stats?.totalIncome).toLocaleString()}
+                    ₹{Number(stats?.totalIncome).toLocaleString()}
                   </h3>
                 </div>
                 <div className="h-12 w-12 rounded-full bg-emerald-100 flex items-center justify-center">
@@ -58,7 +76,7 @@ export default function Dashboard() {
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">Total Expenses</p>
                   <h3 className="text-2xl font-bold mt-2 text-rose-600">
-                    ${Number(stats?.totalExpense).toLocaleString()}
+                    ₹{Number(stats?.totalExpense).toLocaleString()}
                   </h3>
                 </div>
                 <div className="h-12 w-12 rounded-full bg-rose-100 flex items-center justify-center">
@@ -74,7 +92,7 @@ export default function Dashboard() {
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">Current Balance</p>
                   <h3 className="text-2xl font-bold mt-2 text-primary">
-                    ${Number(stats?.balance).toLocaleString()}
+                    ₹{Number(stats?.balance).toLocaleString()}
                   </h3>
                 </div>
                 <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
@@ -110,7 +128,7 @@ export default function Dashboard() {
                         ))}
                       </Pie>
                       <RechartsTooltip 
-                        formatter={(value: number) => `$${value.toLocaleString()}`}
+                        formatter={(value: number) => `₹${value.toLocaleString()}`}
                         contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
                       />
                       <Legend />
@@ -138,7 +156,7 @@ export default function Dashboard() {
                     <div key={expense.id} className="flex items-center justify-between group">
                       <div className="flex items-center gap-4">
                         <div className="h-10 w-10 rounded-full bg-secondary flex items-center justify-center text-primary group-hover:scale-110 transition-transform duration-200">
-                          <DollarSign className="h-5 w-5" />
+                          {getCategoryIcon(expense.category?.name || "")}
                         </div>
                         <div>
                           <p className="font-medium text-sm">{expense.description || "Expense"}</p>
@@ -148,7 +166,7 @@ export default function Dashboard() {
                         </div>
                       </div>
                       <div className="font-bold text-rose-600 text-sm">
-                        -${Number(expense.amount).toLocaleString()}
+                        -₹{Number(expense.amount).toLocaleString()}
                       </div>
                     </div>
                   ))

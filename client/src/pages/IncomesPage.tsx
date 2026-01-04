@@ -69,7 +69,7 @@ export default function IncomesPage() {
                   <div className="space-y-2">
                     <Label>Amount</Label>
                     <div className="relative">
-                      <span className="absolute left-3 top-2.5 text-muted-foreground">$</span>
+                      <span className="absolute left-3 top-2.5 text-muted-foreground">₹</span>
                       <Input 
                         type="number" 
                         step="0.01" 
@@ -155,7 +155,7 @@ export default function IncomesPage() {
                     {income.source}
                   </div>
                   <div className="col-span-3 text-right font-bold text-emerald-600">
-                    +${Number(income.amount).toLocaleString()}
+                    +₹{Number(income.amount).toLocaleString()}
                   </div>
                   <div className="col-span-1 text-center">
                     <Button 

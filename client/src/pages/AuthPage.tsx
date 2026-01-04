@@ -45,10 +45,14 @@ export default function AuthPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-secondary p-4">
       <div className="w-full max-w-md">
-        <div className="flex justify-center mb-8">
-          <div className="bg-primary/10 p-4 rounded-full ring-8 ring-primary/5">
-            <Wallet className="w-10 h-10 text-primary" />
+        <div className="flex flex-col items-center justify-center mb-8 gap-4">
+          <div className="bg-primary/10 p-6 rounded-3xl ring-8 ring-primary/5 shadow-inner">
+            <Wallet className="w-12 h-12 text-primary animate-pulse" />
           </div>
+          <h1 className="text-4xl font-extrabold tracking-tight bg-gradient-to-r from-primary via-purple-500 to-indigo-600 bg-clip-text text-transparent drop-shadow-sm">
+            Expense Management System
+          </h1>
+          <p className="text-muted-foreground font-medium">Smart way to manage your wealth</p>
         </div>
         
         <Card className="border-border/50 shadow-xl backdrop-blur-sm bg-white/80">

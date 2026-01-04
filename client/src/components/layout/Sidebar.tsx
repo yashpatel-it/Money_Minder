@@ -61,12 +61,17 @@ export function Sidebar() {
         </div>
         <Button 
           variant="outline" 
-          className="w-full justify-start gap-2 border-border/50 hover:bg-destructive/10 hover:text-destructive hover:border-destructive/20"
+          className="w-full justify-start gap-2 border-border/50 hover:bg-destructive/10 hover:text-destructive hover:border-destructive/20 mb-4"
           onClick={() => logout()}
         >
           <LogOut size={16} />
           Logout
         </Button>
+        <div className="pt-4 border-t border-border/20 text-center">
+          <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold">
+            Made by Yash Patel
+          </p>
+        </div>
       </div>
     </div>
   );

@@ -3,7 +3,19 @@ import { useExpenses } from "@/hooks/use-expenses";
 import { useCategories } from "@/hooks/use-categories";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Plus, Trash2, Search, Filter, CalendarIcon } from "lucide-react";
+import { Plus, Trash2, Search, Filter, CalendarIcon, Utensils, Plane, Home, GraduationCap, Stethoscope, Film, MoreHorizontal } from "lucide-react";
+
+const getCategoryIcon = (name: string) => {
+  switch (name.toLowerCase()) {
+    case "food": return <Utensils className="w-4 h-4" />;
+    case "travel": return <Plane className="w-4 h-4" />;
+    case "rent": return <Home className="w-4 h-4" />;
+    case "education": return <GraduationCap className="w-4 h-4" />;
+    case "medical": return <Stethoscope className="w-4 h-4" />;
+    case "entertainment": return <Film className="w-4 h-4" />;
+    default: return <MoreHorizontal className="w-4 h-4" />;
+  }
+};
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -76,7 +88,7 @@ export default function ExpensesPage() {
                   <div className="space-y-2">
                     <Label>Amount</Label>
                     <div className="relative">
-                      <span className="absolute left-3 top-2.5 text-muted-foreground">$</span>
+                      <span className="absolute left-3 top-2.5 text-muted-foreground">₹</span>
                       <Input 
                         type="number" 
                         step="0.01" 
@@ -108,7 +120,10 @@ export default function ExpensesPage() {
                     <SelectContent>
                       {expenseCategories.map((cat) => (
                         <SelectItem key={cat.id} value={cat.id.toString()}>
-                          {cat.name}
+                          <div className="flex items-center gap-2">
+                            {getCategoryIcon(cat.name)}
+                            {cat.name}
+                          </div>
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -194,13 +209,14 @@ export default function ExpensesPage() {
                     {expense.description || "-"}
                   </div>
                   <div className="col-span-2">
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">
+                      {getCategoryIcon(expense.category?.name || "")}
                       {expense.category?.name}
                     </span>
                   </div>
                   <div className="col-span-2 text-muted-foreground">{expense.paymentMode}</div>
                   <div className="col-span-2 text-right font-bold text-rose-600">
-                    -${Number(expense.amount).toLocaleString()}
+                    -₹{Number(expense.amount).toLocaleString()}
                   </div>
                   <div className="col-span-1 text-center">
                     <Button 
