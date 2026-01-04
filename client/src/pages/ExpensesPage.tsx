@@ -4,6 +4,16 @@ import { useCategories } from "@/hooks/use-categories";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Plus, Trash2, Search, Filter, CalendarIcon, Utensils, Plane, Home, GraduationCap, Stethoscope, Film, MoreHorizontal } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { insertExpenseSchema } from "@shared/schema";
+import { format } from "date-fns";
+import { useState } from "react";
+import { z } from "zod";
 
 const getCategoryIcon = (name: string) => {
   switch (name.toLowerCase()) {
@@ -16,16 +26,6 @@ const getCategoryIcon = (name: string) => {
     default: return <MoreHorizontal className="w-4 h-4" />;
   }
 };
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { insertExpenseSchema } from "@shared/schema";
-import { format } from "date-fns";
-import { useState } from "react";
-import { z } from "zod";
 
 export default function ExpensesPage() {
   const { expenses, createExpense, deleteExpense, isCreating, isLoading } = useExpenses();

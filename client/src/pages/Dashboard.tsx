@@ -2,6 +2,9 @@ import { AppLayout } from "@/components/layout/AppLayout";
 import { useStats } from "@/hooks/use-stats";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowDownRight, ArrowUpRight, DollarSign, Wallet, Loader2, IndianRupee, Utensils, Plane, Home, GraduationCap, Stethoscope, Film, MoreHorizontal } from "lucide-react";
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip, Legend } from "recharts";
+import { useExpenses } from "@/hooks/use-expenses";
+import { format } from "date-fns";
 
 const getCategoryIcon = (name: string) => {
   switch (name.toLowerCase()) {
@@ -14,17 +17,8 @@ const getCategoryIcon = (name: string) => {
     default: return <MoreHorizontal className="w-4 h-4" />;
   }
 };
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip, Legend } from "recharts";
-import { useExpenses } from "@/hooks/use-expenses";
-import { format } from "date-fns";
 
 const COLORS = ['#10b981', '#f43f5e', '#3b82f6', '#8b5cf6', '#f59e0b', '#6366f1'];
-
-    case "medical": return <Stethoscope className="w-4 h-4" />;
-    case "entertainment": return <Film className="w-4 h-4" />;
-    default: return <MoreHorizontal className="w-4 h-4" />;
-  }
-};
 
 export default function Dashboard() {
   const { data: stats, isLoading: statsLoading } = useStats();
