@@ -6,7 +6,7 @@ A modern expense management system built to help users track, organize, and unde
 
 ## 🚀 Overview
 
-iCreatesD Expense Management System allows users to record daily expenses, categorize them, and view summaries that help improve financial awareness and control.
+Expense Management System allows users to record daily expenses, categorize them, and view summaries that help improve financial awareness and control.
 
 ---
 
