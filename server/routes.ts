@@ -186,14 +186,25 @@ export async function registerRoutes(
     const expenses = await storage.getExpenses(userId);
     const incomes = await storage.getIncomes(userId);
 
-    const totalExpense = expenses.reduce((sum, e) => sum + Number(e.amount), 0);
-    const totalIncome = incomes.reduce((sum, i) => sum + Number(i.amount), 0);
+    // Convert numeric strings to numbers properly
+    const totalExpense = expenses.reduce((sum, e) => {
+      const amount = typeof e.amount === 'string' ? parseFloat(e.amount) : Number(e.amount);
+      return sum + (isNaN(amount) ? 0 : amount);
+    }, 0);
+    
+    const totalIncome = incomes.reduce((sum, i) => {
+      const amount = typeof i.amount === 'string' ? parseFloat(i.amount) : Number(i.amount);
+      return sum + (isNaN(amount) ? 0 : amount);
+    }, 0);
+    
     const balance = totalIncome - totalExpense;
 
     const categoryMap = new Map<string, number>();
     expenses.forEach(e => {
       const catName = e.category?.name || 'Unknown';
-      categoryMap.set(catName, (categoryMap.get(catName) || 0) + Number(e.amount));
+      const amount = typeof e.amount === 'string' ? parseFloat(e.amount) : Number(e.amount);
+      const validAmount = isNaN(amount) ? 0 : amount;
+      categoryMap.set(catName, (categoryMap.get(catName) || 0) + validAmount);
     });
 
     const categoryWise = Array.from(categoryMap.entries()).map(([name, value]) => ({ name, value }));

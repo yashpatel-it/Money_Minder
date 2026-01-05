@@ -38,8 +38,34 @@ export const incomes = pgTable("incomes", {
 // Insert schemas
 export const insertUserSchema = createInsertSchema(users);
 export const insertCategorySchema = createInsertSchema(categories);
-export const insertExpenseSchema = createInsertSchema(expenses).omit({ id: true, userId: true });
-export const insertIncomeSchema = createInsertSchema(incomes).omit({ id: true, userId: true });
+export const insertExpenseSchema = createInsertSchema(expenses)
+  .omit({ id: true, userId: true })
+  .extend({
+    amount: z.union([z.string(), z.number()]).transform(val => {
+      if (typeof val === 'number') return val.toString();
+      return val;
+    }),
+    date: z.union([z.date(), z.string()]).transform(val => {
+      if (typeof val === 'string') return new Date(val);
+      return val;
+    }),
+    categoryId: z.union([z.string(), z.number()]).transform(val => {
+      if (typeof val === 'string') return parseInt(val, 10);
+      return val;
+    }),
+  });
+export const insertIncomeSchema = createInsertSchema(incomes)
+  .omit({ id: true, userId: true })
+  .extend({
+    amount: z.union([z.string(), z.number()]).transform(val => {
+      if (typeof val === 'number') return val.toString();
+      return val;
+    }),
+    date: z.union([z.date(), z.string()]).transform(val => {
+      if (typeof val === 'string') return new Date(val);
+      return val;
+    }),
+  });
 
 // Types
 export type User = typeof users.$inferSelect;

@@ -54,7 +54,7 @@ export default function Dashboard() {
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">Total Income</p>
                   <h3 className="text-2xl font-bold mt-2 text-emerald-600">
-                    ₹{Number(stats?.totalIncome).toLocaleString()}
+                    ₹{parseFloat(String(stats?.totalIncome || 0)).toLocaleString()}
                   </h3>
                 </div>
                 <div className="h-12 w-12 rounded-full bg-emerald-100 flex items-center justify-center">
@@ -70,7 +70,7 @@ export default function Dashboard() {
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">Total Expenses</p>
                   <h3 className="text-2xl font-bold mt-2 text-rose-600">
-                    ₹{Number(stats?.totalExpense).toLocaleString()}
+                    ₹{parseFloat(String(stats?.totalExpense || 0)).toLocaleString()}
                   </h3>
                 </div>
                 <div className="h-12 w-12 rounded-full bg-rose-100 flex items-center justify-center">
@@ -86,7 +86,7 @@ export default function Dashboard() {
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">Current Balance</p>
                   <h3 className="text-2xl font-bold mt-2 text-primary">
-                    ₹{Number(stats?.balance).toLocaleString()}
+                    ₹{parseFloat(String(stats?.balance || 0)).toLocaleString()}
                   </h3>
                 </div>
                 <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
@@ -160,7 +160,7 @@ export default function Dashboard() {
                         </div>
                       </div>
                       <div className="font-bold text-rose-600 text-sm">
-                        -₹{Number(expense.amount).toLocaleString()}
+                        -₹{parseFloat(String(expense.amount || 0)).toLocaleString()}
                       </div>
                     </div>
                   ))
